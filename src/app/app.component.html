@@ -1,0 +1,143 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top"> 
+  <!-- Navigation bar set to dark and static on the top -->
+  <div class="container">	<a class="navbar-brand" href="#">Holiday Planner</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">	<span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+              <!-- Navigation items include Home, Discover and Reviews -->
+        <li class="nav-item active"><a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Discover</a></li> 
+        <li class="nav-item"><a class="nav-link" href="#">Reviews</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-left">
+      <!-- Adding heading 1 to my webpage for welcome message -->
+      <h1 class="mt-5">Welcome to Holiday Planner</h1>
+      <p class="lead">Select your dream destination from the countries below. Pack up and go!.</p>
+    </div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <select class="form-control" formControlName="area" >
+            <option hidden value="" >Select area</option>
+            <option *ngFor="let area of planService.areas" [value]="area.value">{{area.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input class="form-control" formControlName="country" placeholder="Country">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input class="form-control" formControlName="whyGo" placeholder="Why go">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input class="form-control" formControlName="wheretoGo" placeholder="Where to go">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <select class="form-control" formControlName="timeInDays" placeholder="timeinDays">
+            <option value="">Time In Days</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <select class="form-control" formControlName="levelofDifficulty" placeholder="levelofDifficulty">
+            <option value="" hidden>Level of Difficulty</option>
+            <option *ngFor="let obj of planService.difficulties" [value]="obj.value">{{obj.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input class="form-control" type="number" formControlName="entraceFees" placeholder="Entrace Fees">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input class="form-control" formControlName="image" placeholder="Image url">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit" *ngIf="!selectedPlan">Add</button>
+          <button class="btn btn-primary btn-block" type="button" *ngIf="selectedPlan" (click)="updatePlan()">Update</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="area" (change)="changeArea(area)">
+          <option value="" >All</option>
+          <option value="0">Africa</option>
+          <option value="1">Asia</option>
+          <option value="2">South America</option>
+          <option value="3">North America</option>
+          <option value="4">Europe</option>
+          <option value="5">Australia and Oceania</option>
+          <option value="6">Antarctica</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Image</th>
+            <th>Country</th>
+            <th>Why go</th>
+            <th>Where to go</th>
+            <th>Time In Days</th>
+            <th>Level of Difficulty</th>
+            <th>EntraceFees</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let plan of plans; let i = index">
+            <td>{{getArea(plan.area)}}</td>
+            <td>
+              <img [src]="plan.image" width="150px">
+            </td>
+            <td>{{plan.country}}</td>
+            <td>{{plan.whyGo}}</td>
+            <td>{{plan.wheretoGo}}</td>
+            <td>{{plan.timeInDays}}</td>
+            <td>{{plan.levelofDifficulty}}</td>
+            <td>{{plan.entraceFees}}</td>
+            <td>
+              <button class="btn btn-primary mr-1" (click)="editPlan(i)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger" (click)="deletePlan(i)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
