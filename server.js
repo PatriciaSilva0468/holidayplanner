@@ -18,7 +18,9 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-const MONGOURL = 'mongodb+srv://root:admin123@cluster0-ahfxx.mongodb.net/holiday';
+// Mongodb srv url
+// mongodb+srv://<username>:<password>@cluster0-ahfxx.mongodb.net/<db name>';
+const MONGOURL = '#';
 mongoose.connect(MONGOURL)
   .then(() => console.log("DB connected"))
   .catch(error => console.log(error));
