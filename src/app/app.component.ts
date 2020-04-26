@@ -23,6 +23,8 @@ export class AppComponent implements OnInit{
 
   ngOnInit() { 
     this.reactiveForm();
+	
+	// to get all plans from db
     this.planService.getPlans()
       .subscribe(res => {
         this.allPlans = res;
@@ -30,6 +32,8 @@ export class AppComponent implements OnInit{
       })
   }
   reactiveForm() {
+	  
+	// initialize form
     this.myForm = this.fb.group({
       area: [''],
       country: [''],
@@ -48,6 +52,8 @@ export class AppComponent implements OnInit{
     }
     this.submitted = true;
     this.loading = true;
+	
+	// create plan
     this.planService.createPlan(this.myForm.value)
       .subscribe(res => {
         this.loading = false;
@@ -59,6 +65,8 @@ export class AppComponent implements OnInit{
   editPlan(i) {
     this.selectedPlan = true;
     this.selectedPlanId = this.plans[i]._id;
+	
+	// fill values into form
     this.myForm.patchValue(this.plans[i]);
 
     
@@ -66,12 +74,15 @@ export class AppComponent implements OnInit{
   deletePlan(i) {
     let plan_id = this.plans[i]._id;
     this.plans.splice(i, 1);
+	
+	// delete plan
     this.planService.deletePlan(plan_id)
       .subscribe(res => {
         this.reactiveForm();
       });
   }
   updatePlan() {
+	// update plan
     this.planService.updatePlan(this.myForm.value, this.selectedPlanId)
       .subscribe(res => {
         let index = this.plans.findIndex(item => item._id == this.selectedPlanId);
@@ -84,6 +95,8 @@ export class AppComponent implements OnInit{
   }
 
   changeArea(area) {
+	  
+	// retrieve plans by area
     this.plans = this.allPlans.filter(item => {
       if(area == "") return true;
       if(item.area == area) return true;
