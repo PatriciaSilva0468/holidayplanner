@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { Plan } = require('../Model/plan');
 
+
+// get api
 router.get('/plan',(req,res)=>{
 	Plan.find({}, (err, result) => {
 		if(!result){
@@ -17,6 +19,8 @@ router.get('/plan',(req,res)=>{
 	})
 });
 
+
+// create api
 router.post('/create',(req,res)=>{
 	const plan = new Plan({
         area: req.body.area,
@@ -32,6 +36,8 @@ router.post('/create',(req,res)=>{
         res.status(200).send(response)
     });
 });
+
+//update api
 router.post('/update',(req,res)=>{
 	const update = {
         area: req.body.data.area,
@@ -48,6 +54,8 @@ router.post('/update',(req,res)=>{
         res.status(200).send(result);
     })
 });
+
+// delete api
 router.post('/delete', (req, res, next) => {
 	const id = req.body.id;
 	Plan.findOneAndDelete({'_id': id}, (err, result) => {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// Plan schema structure
 const planSchema = mongoose.Schema({
     area: String,
     country: String,
