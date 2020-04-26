@@ -22,6 +22,7 @@
       <p class="lead">Select your dream destination from the countries below. Pack up and go!.</p>
     </div>
   </div>
+  <!-- Plan Form -->
   <form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate>
     <div class="row">
       <div class="col-md-3">
@@ -105,6 +106,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
+	<!-- Plan Table -->
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
@@ -132,6 +134,7 @@
             <td>{{plan.levelofDifficulty}}</td>
             <td>{{plan.entraceFees}}</td>
             <td>
+			<!-- Edit and Delete action-->
               <button class="btn btn-primary mr-1" (click)="editPlan(i)"><i class="fa fa-edit"></i></button>
               <button class="btn btn-danger" (click)="deletePlan(i)"><i class="fa fa-trash"></i></button>
             </td>
