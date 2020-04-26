@@ -28,12 +28,16 @@ export class PlanService {
   constructor(
     private http: HttpClient,
   ) { }
+  
+  // retrieve plans from mongodb atlas
   getPlans()  {
     return this.http.get<any>(this.apiUrl + 'plan')
       .pipe(map(res => {
           return res.data;
       }));
   }
+  
+  // create plan into mongodb
   createPlan(data) {
     return this.http.post<any>(this.apiUrl + 'create', data).pipe(map(plan => {
       if (plan) {
@@ -42,6 +46,8 @@ export class PlanService {
 
     }))
   }
+  
+  // update plan
   updatePlan(data, id) {
     return this.http.post<any>(this.apiUrl + 'update', {data: data, id: id}).pipe(map(plan => {
       if (plan) {
@@ -50,6 +56,8 @@ export class PlanService {
 
     }))
   }
+  
+  // delete plan
   deletePlan(id) {
     return this.http.post<any>(this.apiUrl + 'delete', {id: id}).pipe(map(plan => {
       if (plan) {
